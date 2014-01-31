@@ -8,6 +8,7 @@
 
 
 from ...widgets.base_widget import BaseWidget
+from ...widgets.base import protect
 from .qt.QtGui import QWidget
 
 class Widget(BaseWidget):
@@ -30,5 +31,6 @@ class Widget(BaseWidget):
     def _update_visible(self, visible):
         self.control.setVisible(visible)
 
+    @protect
     def _update_enabled(self, enabled):
         self.control.setEnabled(enabled)
