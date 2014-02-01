@@ -10,12 +10,13 @@ from __future__ import absolute_import, division, print_function
 
 from traits.api import Any, Bool, Enum, Event, Int, Tuple, Unicode, provides
 
-from .trait_types import Attribute, Alignment, EchoMode
-from .base_widget import BaseWidget
-from .i_field import IField
+from ..trait_types import (Attribute, Alignment, EchoMode, HorizontalAlignment,
+    VerticalAlignment)
+from .c_widget import CWidget
+from ..interfaces.i_field import IField
 
 @provides(IField)
-class BaseField(BaseWidget):
+class CField(CWidget):
     """ Base class for editable text field widgets """
     
     visible = True
@@ -45,10 +46,10 @@ class BaseField(BaseWidget):
     alignment = Attribute(Alignment)
 
     #: the alignment of the text in the field
-    horizontal_alignment = Attribute(HorizontalAlignment)
+    #horizontal_alignment = Attribute(HorizontalAlignment)
 
     #: the alignment of the text in the field
-    vertical_alignment = Attribute(VerticalAlignment)
+    #vertical_alignment = Attribute(VerticalAlignment)
 
     #: the user has pressed the Return or Enter key
     return_pressed = Event

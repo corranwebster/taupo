@@ -18,11 +18,11 @@ from __future__ import absolute_import, division, print_function
 
 from traits.api import Any, Bool, HasTraits, Instance, Property, Set, Trait, provides
 
-from .trait_types import Attribute
-from .i_widget import IWidget
+from ..trait_types import Attribute
+from ..interfaces.i_widget import IWidget
 
 @provides(IWidget)
-class BaseWidget(HasTraits):
+class CWidget(HasTraits):
     """ Base class for GUI Widget Proxies """
     
     # ------------------------------------------------------------------------

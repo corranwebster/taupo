@@ -10,7 +10,7 @@
 from .qt.QtGui import QLabel
 from .qt.QtCore import Qt
 
-from ...widgets.base_label import BaseLabel
+from ...common.c_label import CLabel
 from .widget import Widget
 
 horizontal_alignments = {
@@ -25,7 +25,7 @@ vertical_alignments = {
     'bottom': Qt.AlignBottom,
 }
 
-class Label(BaseLabel, Widget):
+class Label(CLabel, Widget):
 
     def _create_control(self, parent):
         control = QLabel(parent)

@@ -8,8 +8,8 @@
 
 from __future__ import absolute_import, division, print_function
 
-from taupo.widgets.widget import Widget
-from taupo.widgets.field import Field
+from taupo.widget import Widget
+from taupo.field import Field
 from taupo.toolkits.qt4.support import start_event_loop
 
 def listener(new):

@@ -6,5 +6,5 @@
 # This software is provided without warranty under the terms of the BSD license
 # in the LICENSE file.
 
-from ..toolkit import toolkit_object
-Field = toolkit_object('field:Field')
+from .toolkit import toolkit_object
+Font = toolkit_object('font:Font')

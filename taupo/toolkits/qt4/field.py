@@ -10,8 +10,8 @@
 from .qt.QtGui import QLineEdit
 from .qt.QtCore import Qt
 
-from ...widgets.base_field import BaseField
-from ...widgets.base import protect
+from ...common.c_field import CField
+from ...base import protect
 from .widget import Widget
 
 horizontal_alignments = {
@@ -31,7 +31,7 @@ echo_modes = {
     'no_echo': QLineEdit.NoEcho,
 }
 
-class Field(BaseField, Widget):
+class Field(CField, Widget):
 
     def _create_control(self, parent):
         control = QLineEdit(parent)
@@ -58,17 +58,17 @@ class Field(BaseField, Widget):
     def _update_echo_mode(self, echo_mode):
         self.control.setEchoMode(echo_modes[echo_mode])
 
-    @protect
-    def _update_vertical_alignment(self, vertical_alignment):
-        self._update_alignment()
+    #@protect
+    #def _update_vertical_alignment(self, vertical_alignment):
+    #    self._update_alignment()
 
-    @protect
-    def _update_horizontal_alignment(self, horizontal_alignment):
-        self._update_alignment()
+    #@protect
+    #def _update_horizontal_alignment(self, horizontal_alignment):
+    #    self._update_alignment()
 
-    def _update_alignment(self):
-        vertical = vertical_alignments[self.vertical_alignment]
-        horizontal = horizontal_alignments[self.horizontal_alignment]
+    def _update_alignment(self, alignment):
+        horizontal = horizontal_alignments[alignment[0]]
+        vertical = vertical_alignments[alignment[1]]
         self.control.setAlignment(vertical | horizontal)
 
     def _bind_events(self):

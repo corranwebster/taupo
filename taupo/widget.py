@@ -6,5 +6,5 @@
 # This software is provided without warranty under the terms of the BSD license
 # in the LICENSE file.
 
-from ..toolkit import toolkit_object
-Label = toolkit_object('label:Label')
+from .toolkit import toolkit_object
+Widget = toolkit_object('widget:Widget')

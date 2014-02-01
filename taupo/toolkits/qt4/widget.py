@@ -7,11 +7,11 @@
 # in the LICENSE file.
 
 
-from ...widgets.base_widget import BaseWidget
-from ...widgets.base import protect
+from ...common.c_widget import CWidget
+from ...base import protect
 from .qt.QtGui import QWidget
 
-class Widget(BaseWidget):
+class Widget(CWidget):
 
     def _create_control(self, parent):
         return QWidget(parent)
