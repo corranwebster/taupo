@@ -16,9 +16,9 @@ QObject.
 
 from __future__ import absolute_import, division, print_function
 
-from ...common.c_object import CObject
+from ...common.abstract_object import AbstractObject
 
-class Object(CObject):
+class Object(AbstractObject):
     """ Qt object proxy base class """
 
     def _destroy_object(self):

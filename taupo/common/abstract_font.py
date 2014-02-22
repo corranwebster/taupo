@@ -16,13 +16,13 @@ toolkit and the fonts available in the OS.
 
 from __future__ import absolute_import, division, print_function
 
-from traits.api import Enum, HasTraits, Int, Unicode, provides
+from traits.api import ABCHasTraits, Enum, Int, Unicode, provides
 
 from ..trait_types import Attribute
 from ..interfaces.i_font import IFont
 
 @provides(IFont)
-class CFont(HasTraits):
+class AbstractFont(ABCHasTraits):
 
     #: the font family to use, if available
     family = Attribute(Unicode('sanserif'))

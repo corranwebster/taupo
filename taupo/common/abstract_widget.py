@@ -16,14 +16,17 @@ the IWidget interface that toolkits can subclass from.
 
 from __future__ import absolute_import, division, print_function
 
+from abc import abstractmethod
+
 from traits.api import Any, Bool, HasTraits, Instance, Property, Set, Trait, provides
 
 from ..trait_types import Attribute
 from ..interfaces.i_widget import IWidget
-from .c_object import CObject
+
+from .abstract_object import AbstractObject
 
 @provides(IWidget)
-class CWidget(CObject):
+class AbstractWidget(AbstractObject):
     """ Base class for GUI Widget Proxies """
     
     # ------------------------------------------------------------------------
@@ -48,17 +51,21 @@ class CWidget(CObject):
     # 'CWidget' interface
     # ------------------------------------------------------------------------
 
+    @abstractmethod
     def _create_control(self, parent):
         raise NotImplementedError
 
+    @abstractmethod
     def _update_parent(self, parent):
         raise NotImplementedError
     
     # Taupo Attribute handlers
 
+    @abstractmethod
     def _update_visible(self, visible):
         raise NotImplementedError
 
+    @abstractmethod
     def _update_enabled(self, enabled):
         raise NotImplementedError
     

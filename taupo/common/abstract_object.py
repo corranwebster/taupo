@@ -24,7 +24,7 @@ from ..trait_types import Attribute
 from ..interfaces.i_object import IObject
 
 @provides(IObject)
-class CObject(ABCHasTraits):
+class AbstractObject(ABCHasTraits):
     """ Abstract base class for toolkit object proxies """
     
     # ------------------------------------------------------------------------

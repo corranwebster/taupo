@@ -10,7 +10,7 @@
 from .qt.QtGui import QLineEdit
 from .qt.QtCore import Qt
 
-from ...common.c_field import CField
+from ...common.abstract_field import AbstractField
 from ...base import protect
 from .widget import Widget
 
@@ -20,7 +20,7 @@ echo_modes = {
     'no_echo': QLineEdit.NoEcho,
 }
 
-class Field(CField, Widget):
+class Field(AbstractField, Widget):
     
     def insert(self, text):
         self.object.insert(text)

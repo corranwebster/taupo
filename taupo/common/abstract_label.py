@@ -8,14 +8,15 @@
 
 from __future__ import absolute_import, division, print_function
 
-from traits.api import Any, Enum, Int, Unicode, provides
+from traits.api import Unicode, provides
 
 from ..trait_types import Attribute
-from .c_widget import CWidget
 from ..interfaces.i_label import ILabel
 
+from .abstract_widget import AbstractWidget
+
 @provides(ILabel)
-class CLabel(CWidget):
+class AbstractLabel(AbstractWidget):
     """ Base class for static label widgets """
     
     visible = True

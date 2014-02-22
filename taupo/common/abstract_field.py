@@ -8,14 +8,17 @@
 
 from __future__ import absolute_import, division, print_function
 
+from abc import abstractmethod
+
 from traits.api import Any, Bool, Event, Int, Tuple, Unicode, provides
 
 from ..trait_types import (Attribute, EchoMode)
-from .c_widget import CWidget
 from ..interfaces.i_field import IField
 
+from .abstract_widget import AbstractWidget
+
 @provides(IField)
-class CField(CWidget):
+class AbstractField(AbstractWidget):
     """ Base class for editable text field widgets """
     
     visible = True
@@ -41,5 +44,6 @@ class CField(CWidget):
     #: the user has finished editing the field
     editing_finished = Event
 
+    @abstractmethod
     def insert(self, text):
         raise NotImplementedError

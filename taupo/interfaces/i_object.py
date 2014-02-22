@@ -41,7 +41,12 @@ from __future__ import absolute_import, division, print_function
 from traits.api import Any, Bool, Interface, Instance
 
 class IObject(Interface):
-    """ Base interface for GUI Object Proxies """
+    """ Base interface for GUI Object Proxies
+    
+    Object implementations provide methods to create and destroy an underlying
+    GUI toolkit object, and hold a reference to it.
+    
+    """
 
     #: the underlying toolkit  object
     object = Any

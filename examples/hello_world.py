@@ -12,8 +12,8 @@ from taupo.widget import Widget
 from taupo.field import Field
 from taupo.toolkits.qt4.support import start_event_loop
 
-def listener(new):
-    print('updated:', new)
+def listener(obj, name, old, new):
+    print('updated:', old, '->', new)
         
 
 def main():
@@ -30,6 +30,7 @@ def main():
     l.create()
     w.visible = True
     l.text = 'Foo'
+    l.selected_range = (2, 2)
     start_event_loop()
 
 if __name__ == '__main__':

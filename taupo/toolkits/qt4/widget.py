@@ -8,13 +8,13 @@
 
 from __future__ import absolute_import, division, print_function
 
-from ...common.c_widget import CWidget
+from ...common.abstract_widget import AbstractWidget
 from ...base import protect
 
 from .qt.QtGui import QWidget
 from .object import Object
 
-class Widget(CWidget, Object):
+class Widget(AbstractWidget, Object):
     
     def _create_control(self, parent):
         return QWidget(parent)
