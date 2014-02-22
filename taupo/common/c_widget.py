@@ -20,17 +20,15 @@ from traits.api import Any, Bool, HasTraits, Instance, Property, Set, Trait, pro
 
 from ..trait_types import Attribute
 from ..interfaces.i_widget import IWidget
+from .c_object import CObject
 
 @provides(IWidget)
-class CWidget(HasTraits):
+class CWidget(CObject):
     """ Base class for GUI Widget Proxies """
     
     # ------------------------------------------------------------------------
     # 'IWidget' interface
     # ------------------------------------------------------------------------
-
-    #: the underlying toolkit object
-    control = Any
 
     #: the parent IWidget object, or None
     parent = Instance(IWidget)
@@ -41,45 +39,22 @@ class CWidget(HasTraits):
     #: whether or not the widget is enabled for use interaction
     enabled = Attribute(Bool(True))
     
-    def create(self):
-        """ Create the underlying toolkit widget and connect Traits """
-        if self.control is None:
-            self.control = self._create_control(self._parent_control)
-            self._initialize_control()
-            self._bind_events()
-            self._connect_listeners()
-
     def reparented(self):
         """ Handle reparenting a Widget """
-        if self.control is not None:
-            self._update_parent(self._parent_control)
-
-    def destroy(self):
-        """ Destroy the underlying toolkit widget and disconnect Traits """
-        if self.control is not None:
-            self._connect_listeners(remove=True)
-            self._destroy_control()
-
-    def focus(self):
-        """ Make this widget have the focus, if possible """
+        if self.object is not None:
+            self._update_parent(self._parent_object)
 
     # ------------------------------------------------------------------------
-    # 'BaseWidget' interface
+    # 'CWidget' interface
     # ------------------------------------------------------------------------
 
     def _create_control(self, parent):
         raise NotImplementedError
 
-    def _bind_events(self):
-        raise NotImplementedError
-
-    def _destroy_control(self):
-        raise NotImplementedError
-
-    # update handlers
-
     def _update_parent(self, parent):
         raise NotImplementedError
+    
+    # Taupo Attribute handlers
 
     def _update_visible(self, visible):
         raise NotImplementedError
@@ -88,40 +63,21 @@ class CWidget(HasTraits):
         raise NotImplementedError
     
     # ------------------------------------------------------------------------
+    # 'CObject' interface
+    # ------------------------------------------------------------------------
+
+    def _create_object(self):
+        return self._create_control(self._parent_object)
+
+    # ------------------------------------------------------------------------
     # Private interface
     # ------------------------------------------------------------------------
 
-    #: tracks attributes which are being updated
-    _updating = Set
-
-    #: utility trait providing the parent's control, or None
-    _parent_control = Property(Any)
-    def _get__parent_control(self):
+    #: utility trait providing the parent's object, or None
+    _parent_object = Property(Any)
+    def _get__parent_object(self):
         if self.parent is not None:
-            if self.parent.control is None:
+            if self.parent.object is None:
                 self.parent.create()
-            return self.parent.control
+            return self.parent.object
         return None
-
-    def _initialize_control(self):
-        for name in self.traits(taupo_attribute=True):
-            if name == 'visible':
-                continue
-            method = getattr(self, '_update_'+name)
-            method(getattr(self, name))
-        self._update_visible(self.visible)
-
-    def _connect_listeners(self, remove=False):
-        self.on_trait_change(self._update_parent, 'parent', remove=remove)
-        for name in self.traits(taupo_attribute=True):
-            method = getattr(self, '_update_'+name)
-            self.on_trait_change(method, name, remove=remove)
-
-    def _attribute_set(self, **kwargs):
-        actual_updates = set(kwargs) - self._updating
-        self._updating |= actual_updates
-        try:
-            for name in actual_updates:
-                setattr(self, name, kwargs[name])
-        finally:
-            self._updating -= actual_updates

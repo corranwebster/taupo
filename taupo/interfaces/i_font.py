@@ -16,12 +16,14 @@ toolkit and the fonts available in the OS.
 
 from __future__ import absolute_import, division, print_function
 
-from traits.api import Enum, Event, Int, Interface, Unicode
+from traits.api import Enum, Event, Int, Unicode
 
-class IFont(Interface):
+from .i_object import IObject
+
+class IFont(IObject):
 
     #: the font family to use, if available
-    family = Unicode
+    family = Unicode('sanserif')
     
     #: the size of the font, in points
     size = Int
@@ -31,10 +33,3 @@ class IFont(Interface):
     
     #: the weight of the font to use, if possible
     weight = Enum("normal", "light", "demibold", "bold", "black")
-    
-    #: an event fired when the font has been updated
-    toolkit_font = Event
-
-    def get_toolkit_font(self):
-        """ Return a toolkit font that matches as well as possible """
-        raise NotImplementedError

@@ -22,15 +22,3 @@ class CLabel(CWidget):
 
     #: the text to display in the label
     text = Attribute(Unicode)
-
-    #: the font to use for the label
-    font = Attribute(Any) # XXX Instance(IFont)
-
-    #: the horizontal alignment of the text in the label
-    horizontal_alignment = Attribute(Enum('left', 'center', 'right', 'justify'))
-
-    #: the vertical alignment of the text in the label
-    vertical_alignment = Attribute(Enum('top', 'center', 'bottom'))
-
-    #: amount to indent the text in the label
-    indent = Attribute(Int)

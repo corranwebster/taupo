@@ -6,17 +6,17 @@
 # This software is provided without warranty under the terms of the BSD license
 # in the LICENSE file.
 
-""" Base interface for GUI Widget Proxies
+""" Base interface for GUI Object Proxies
 
-The IWidget interface is the base class for all user interface widgets
+The IObject interface is the base class for all user interface widgets
 provided by the Taupo library.
 
-As a guiding design principle, the IWidget implementation is completely
+As a guiding design principle, the IObject implementation is completely
 responsible for controlling the underlying toolkit widget, and only needs to
 respond do changes in the widget's state driven by the user or OS, not from
 other code which may attempt to manipulate the widget state directly.  If
 something causes the state of the toolkit widget to diverge from the state
-held by the IWidget implementation, then that is a bug, and the IWidget
+held by the IObject implementation, then that is a bug, and the IWidget
 implementation should be considered to hold the true state of the values
 in question.
 
@@ -27,7 +27,7 @@ rather than an attribute holding state (ie. `has_focus()` and `get_focus()` vs.
 of state values from more typical state is whether or not it would make sense
 for these values to be serialized or be part of a template for the widget.
 
-The other design principle is that the IWidget interface represents only the
+The other design principle is that the IObject interface represents only the
 state required to represent the operation of the widget.  There may be
 additional state on the underlying control, but if it is not relevant, it
 should not be exposed.  If there is some question about whether the state is
@@ -40,23 +40,15 @@ from __future__ import absolute_import, division, print_function
 
 from traits.api import Any, Bool, Interface, Instance
 
-from .i_object import IObject
+class IObject(Interface):
+    """ Base interface for GUI Object Proxies """
 
-class IWidget(IObject):
-    """ Base interface for GUI Widget Proxies """
+    #: the underlying toolkit  object
+    object = Any
 
-    #: the parent IWidget object, or None
-    parent = Instance('IWidget')
+    def create(self):
+        """ Create the underlying toolkit object and connect Traits """
 
-    #: whether or not the widget is visible
-    visible = Bool(True)
-
-    #: whether or not the widget is enabled for use interaction
-    enabled = Bool(True)
-
-    def reparented(self):
-        """ Handle reparenting a Widget """
-
-    def focus(self):
-        """ Make this widget have the focus, if possible """
+    def destroy(self):
+        """ Destroy the underlying toolkit object and disconnect Traits """
         

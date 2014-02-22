@@ -18,23 +18,20 @@ from __future__ import absolute_import, division, print_function
 
 from traits.api import Enum, HasTraits, Int, Unicode, provides
 
+from ..trait_types import Attribute
 from ..interfaces.i_font import IFont
 
 @provides(IFont)
 class CFont(HasTraits):
 
     #: the font family to use, if available
-    family = Unicode
+    family = Attribute(Unicode('sanserif'))
     
     #: the size of the font, in points
-    size = Int
+    size = Attribute(Int(12))
     
     #: the style of the font to use, if possible
-    style = Enum("normal", "italic", "oblique")
+    style = Attribute(Enum("normal", "italic", "oblique"))
     
     #: the weight of the font to use, if possible
-    weight = Enum("normal", "light", "demibold", "bold", "black")
-
-    def get_toolkit_font(self):
-        """ Return a toolkit font that matches as well as possible """
-        raise NotImplementedError
+    weight = Attribute(Enum("normal", "light", "demibold", "bold", "black"))

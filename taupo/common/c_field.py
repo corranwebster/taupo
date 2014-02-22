@@ -8,10 +8,9 @@
 
 from __future__ import absolute_import, division, print_function
 
-from traits.api import Any, Bool, Enum, Event, Int, Tuple, Unicode, provides
+from traits.api import Any, Bool, Event, Int, Tuple, Unicode, provides
 
-from ..trait_types import (Attribute, Alignment, EchoMode, HorizontalAlignment,
-    VerticalAlignment)
+from ..trait_types import (Attribute, EchoMode)
 from .c_widget import CWidget
 from ..interfaces.i_field import IField
 
@@ -23,12 +22,9 @@ class CField(CWidget):
 
     #: the text displayed in the field
     text = Attribute(Unicode)
-
-    #: the location of the cursor in the field
-    cursor_position = Attribute(Int)
     
     #: the text which is currently selected (read-only)
-    selected_text = Attribute(Unicode)
+    selected_text = Unicode
     
     #: the range of text which is currently selected
     selected_range = Attribute(Tuple(Int, Int))
@@ -39,21 +35,11 @@ class CField(CWidget):
     #: whether and how the obscures entered text
     echo_mode = Attribute(EchoMode)
 
-    #: the font to use for the field
-    font = Attribute(Any) # XXX Instance(IFont)
-
-    #: the alignment of the text in the field
-    alignment = Attribute(Alignment)
-
-    #: the alignment of the text in the field
-    #horizontal_alignment = Attribute(HorizontalAlignment)
-
-    #: the alignment of the text in the field
-    #vertical_alignment = Attribute(VerticalAlignment)
-
     #: the user has pressed the Return or Enter key
     return_pressed = Event
 
     #: the user has finished editing the field
     editing_finished = Event
-        
+
+    def insert(self, text):
+        raise NotImplementedError

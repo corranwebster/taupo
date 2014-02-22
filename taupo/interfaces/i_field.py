@@ -14,7 +14,7 @@ library.
 """
 from __future__ import absolute_import, division, print_function
 
-from traits.api import Any, Bool, Enum, Event, Unicode
+from traits.api import Bool, Enum, Event, Int, Tuple, Unicode
 
 from .i_widget import IWidget
 
@@ -28,7 +28,7 @@ class IField(IWidget):
     selected_text = Unicode
     
     #: the range of text which is currently selected
-    selected_range = Unicode
+    selected_range = Tuple(Int, Int)
     
     #: whether the field is read-only or not
     read_only = Bool
@@ -36,18 +36,11 @@ class IField(IWidget):
     #: whether and how the obscures entered text
     echo_mode = Enum('normal', 'password', 'no_echo')
 
-    #: the font to use for the field
-    font = Any # XXX Instance(IFont)
-
-    #: the horizontal alignment of the text in the field
-    horizontal_alignment = Enum('left', 'center', 'right', 'justify')
-
-    #: the vertical alignment of the text in the field
-    vertical_alignment = Enum('top', 'center', 'bottom')
-
     #: the user has pressed the Return or Enter key
     return_pressed = Event
 
     #: the user has finished editing the field
     editing_finished = Event
 
+    def insert(self, text):
+        """ Delete the current selection and insert text in its place """

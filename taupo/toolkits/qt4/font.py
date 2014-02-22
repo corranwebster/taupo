@@ -19,9 +19,16 @@ from __future__ import absolute_import, division, print_function
 from traits.api import Enum, Int, Interface, Unicode
 
 from ...common.c_font import CFont
+from .qt.QtGui import QFont
 
 class Font(CFont):
 
-    def get_toolkit_font(self):
-        """ Return a toolkit font that matches as well as possible """
+    def _create_object(self, parent):
+        object = QFont()
+        return object
+
+    def _bind_events(self):
+        pass
+
+    def _destroy_object(self):
         raise NotImplementedError

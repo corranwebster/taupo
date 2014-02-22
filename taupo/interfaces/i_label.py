@@ -23,15 +23,3 @@ class ILabel(IWidget):
 
     #: the text to display in the label
     text = Unicode
-
-    #: the font to use for the label
-    font = Any # XXX Instance(IFont)
-
-    #: the horizontal alignment of the text in the label
-    horizontal_alignment = Enum('left', 'center', 'right', 'justify')
-
-    #: the vertical alignment of the text in the label
-    vertical_alignment = Enum('top', 'center', 'bottom')
-
-    #: amount to indent the text in the label
-    indent = Int

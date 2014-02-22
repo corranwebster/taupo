@@ -33,8 +33,3 @@ class Label(CLabel, Widget):
 
     def _update_text(self, text):
         self.control.setText(text)
-
-    def _update_alignment(self):
-        vertical = vertical_alignments[self.vertical_alignment]
-        horizontal = horizontal_alignments[self.horizontal_alignment]
-        self.control.setAlignment(vertical | horizontal)

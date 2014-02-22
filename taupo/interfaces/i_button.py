@@ -22,21 +22,12 @@ from .i_widget import IWidget
 
 class IButton(IWidget):
     
-    #: the text to display in the label
+    #: the text to display in the button
     text = Unicode
-
-    #: the font to use for the label
-    font = Any # XXX Instance(IFont)
     
-    #: the horizontal alignment of the text in the label
-    horizontal_alignment = Enum('left', 'center', 'right', 'justify')
+    #: the icon to display in the button
+    icon = Unicode
 
-    #: the vertical alignment of the text in the label
-    vertical_alignment = Enum('top', 'center', 'bottom')
-
-    #: event when the button is pressed down
-    pressed = Event
-
-    #: event when the button is released
-    released = Event
+    #: event when the button is clicked (occurs on mouse up)
+    clicked = Event
 

@@ -6,31 +6,30 @@
 # This software is provided without warranty under the terms of the BSD license
 # in the LICENSE file.
 
+from __future__ import absolute_import, division, print_function
 
 from ...common.c_widget import CWidget
 from ...base import protect
+
 from .qt.QtGui import QWidget
+from .object import Object
 
-class Widget(CWidget):
-
+class Widget(CWidget, Object):
+    
     def _create_control(self, parent):
         return QWidget(parent)
 
-    def _bind_events(self):
-        pass
-
     def _destroy_control(self):
         """ Destroy the underlying toolkit widget and disconnect Traits """
-        self.control.hide()
-        self.control.deleteLater()
-        self.control = None
+        self.object.hide()
+        super(Widget.self)._destroy_control()
 
     def _update_parent(self, parent):
-        self.control.setParent(parent)
+        self.object.setParent(parent)
 
     def _update_visible(self, visible):
-        self.control.setVisible(visible)
+        self.object.setVisible(visible)
 
     @protect
     def _update_enabled(self, enabled):
-        self.control.setEnabled(enabled)
+        self.object.setEnabled(enabled)
